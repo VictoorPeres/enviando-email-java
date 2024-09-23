@@ -22,7 +22,7 @@ public class ObjetoEnviaEmail {
     }
 
 
-    public void enviarEmail() {
+    public void enviarEmail(boolean envioHtml) {
         try {
             /* Olhe as configurações SMTP do seu email */
             Properties properties = new Properties();
@@ -45,8 +45,12 @@ public class ObjetoEnviaEmail {
             message.setFrom(new InternetAddress(username, this.nomeRemetente));/*Quem esta enviando*/
             message.setRecipients(Message.RecipientType.TO, toUser);/*Email de destino*/
             message.setSubject(this.assuntoEmail);/*Assunto do email*/
-            message.setText(this.corpoEmail);/*Corpo do email*/
 
+            if(envioHtml) {
+                message.setContent(this.corpoEmail, "text/html; charset=utf-8");
+            }else {
+                message.setText(this.corpoEmail);/*Corpo do email*/
+            }
             Transport.send(message);
         } catch (Exception e) {
             e.printStackTrace();
