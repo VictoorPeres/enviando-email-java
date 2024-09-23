@@ -17,6 +17,7 @@ public class AppTest {
     try{
         /* Olhe as configurações SMTP do seu email */
         Properties properties = new Properties();
+        properties.put("mail.smtp.ssl.trust", "*");
         properties.put("mail.smtp.auth", "true");/*Autorização*/
         properties.put("mail.smtp.starttls", "true");/*Autenticação*/
         properties.put("mail.smtp.host", "smtp.gmail.com");/*Servidor gmail Google*/
@@ -32,10 +33,10 @@ public class AppTest {
         Address[] toUser = InternetAddress.parse("alexanvictor@gmail.com, mcemersonaraujo@gmail.com");
 
         Message message = new MimeMessage(session);
-        message.setFrom(new InternetAddress(username));/*Quem esta enviando*/
+        message.setFrom(new InternetAddress(username, "Victor Oliveira"));/*Quem esta enviando*/
         message.setRecipients(Message.RecipientType.TO, toUser);/*Email de destino*/
-        message.setSubject("Cacheada");
-        message.setText("MA cacheada");
+        message.setSubject("Email teste");
+        message.setText("Email teste enviado com sucesso");
 
         Transport.send(message);
     }catch (Exception e){
